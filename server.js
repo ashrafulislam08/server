@@ -71,7 +71,10 @@ app.get("/books", (req, res) => {
     const result = books.filter((book) => book.price <= 500);
     res.json(result);
   }
-  res.json(result);
+  if (req.query.price == "1000") {
+    const result = books.filter((book) => book.price <= 1000);
+    res.json(result);
+  }
 });
 
 app.listen(3000, () => {
