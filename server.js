@@ -66,7 +66,11 @@ const books = [
 ];
 
 app.get("/books", (req, res) => {
-  const result = books.filter((book) => book.price <= 500);
+  if (req.query.show === "all") return res.json(books);
+  if (req.query.price == "500") {
+    const result = books.filter((book) => book.price <= 500);
+    res.json(result);
+  }
   res.json(result);
 });
 
