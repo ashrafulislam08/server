@@ -2,6 +2,13 @@ const express = require("express");
 
 const app = express();
 
+const simpleLogger = (req, res, next) => {
+  console.log(` ${req.url} - ${req.method} - ${new Date().toISOString()}`);
+  next();
+};
+
+app.use(simpleLogger)
+
 const books = [
   {
     id: 1,
@@ -75,6 +82,15 @@ app.get("/books", (req, res) => {
     const result = books.filter((book) => book.price <= 1000);
     res.json(result);
   }
+  res.json(books.slice(0, 5));
+});
+
+app.get("/hello", (req, res) => {
+  res.json({ message: "Hello" });
+});
+
+app.get("/", (req, res) => {
+  res.json({ message: "Sweet Home" });
 });
 
 app.listen(3000, () => {
